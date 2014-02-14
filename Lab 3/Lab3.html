@@ -1,0 +1,55 @@
+﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true">   
+    var info = Array();
+    var mapKC;
+    var mapSTL;
+    var myOptions = {
+        zoom: 6,
+        mapTypeId: 'terrain'
+    };
+    <!-- 
+        I was unable to get IIS to work, but in this part of the code I was 
+        going to create a Mashup of my own webservice and google maps. This
+        would have stored the Lats and Longs locally directly instead of the 
+        four lines below.
+        Example: window.localStorage.setItem("KCLat",call to url/GetLat/kansascity);
+     -->
+
+    window.localStorage.setItem("KCLat",39.099722);
+    window.localStorage.setItem("KCLong",-94.578333);
+    window.localStorage.setItem("STLLat",38.627222);
+    window.localStorage.setItem("STLLong",-90.197778);
+
+    var KCLat = window.localStorage.getItem("KCLat");
+    var KCLong = window.localStorage.getItem("KCLong");
+    var STLLat = window.localStorage.getItem("STLLat");
+    var STLLong = window.localStorage.getItem("STLLong");
+
+    mapKC = new google.maps.Map($('#KCmap')[0], myOptions);
+    mapSTL = new google.maps.Map($('#STLmap')[0], myOptions);
+    var posKC = new google.maps.LatLng(KCLat, KCLong);
+    var posSTL = new google.maps.LatLng(STLLat, STLLong);
+
+    mapKC.setCenter(posKC);
+    mapSTL.setCenter(posSTL);
+</script>
+
+<div data-role="page" id="page1">
+
+     <div data-role="header">
+          <h1>Lab 3 Tony Sommer</h1>
+     </div>
+
+    <a href="#popupKC" data-rel="popup" data-role="button" >Kansas City</a>
+
+    <div data-role="popup" id="popupKC" data-overlay-theme="a" data-theme="d" data-corners="false">
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <div id="KCMap" class="map"></div>
+    </div>
+
+    <a href="#popupSTL" data-rel="popup" data-role="button" >St. Louis</a>
+
+    <div data-role="popup" id="popupSTL" data-overlay-theme="a" data-theme="d" data-corners="false">
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <div id="STLMap" class="map"></div>
+    </div>
+</div>
